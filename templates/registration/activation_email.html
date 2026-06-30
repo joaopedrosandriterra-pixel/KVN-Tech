@@ -1,0 +1,12 @@
+Olá {{ user.first_name }},
+
+Obrigado por se cadastrar no KVN Tech.
+
+Para ativar sua conta, clique no link abaixo:
+
+{{ protocol }}://{{ domain }}{% url 'activate' uidb64=uidb64 token=token %}
+
+Se você não solicitou este e-mail, pode ignorar esta mensagem.
+
+Obrigado,
+Equipe KVN Tech

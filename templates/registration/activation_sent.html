@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Verifique seu e-mail | KVN Tech{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-md rounded-3xl border border-emerald-500 bg-slate-950/80 p-8 shadow-2xl shadow-slate-950/20">
+  <h1 class="text-3xl font-semibold text-emerald-200">Quase lá!</h1>
+  <p class="mt-4 text-slate-300">Enviamos um e-mail de ativação para <strong>{{ email }}</strong>. Verifique sua caixa de entrada e siga o link para ativar sua conta.</p>
+</div>
+{% endblock %}

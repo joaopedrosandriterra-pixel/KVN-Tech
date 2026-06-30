@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Entrar | KVN Tech{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-md rounded-3xl border border-slate-800 bg-slate-950/80 p-8 shadow-2xl shadow-slate-950/20">
+  <h1 class="text-3xl font-semibold text-white">Entrar</h1>
+  <p class="mt-2 text-slate-400">Use seu cadastro para acessar o painel.</p>
+  <form method="post" class="mt-8 space-y-5">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div>
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+    <div>
+      {{ form.password.label_tag }}
+      {{ form.password }}
+      {{ form.password.errors }}
+    </div>
+    <button type="submit" class="mt-4 w-full rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">Entrar</button>
+  </form>
+  <p class="mt-6 text-center text-slate-400">Não tem conta? <a href="{% url 'signup' %}" class="font-semibold text-cyan-300 hover:text-cyan-200">Criar conta</a></p>
+</div>
+{% endblock %}

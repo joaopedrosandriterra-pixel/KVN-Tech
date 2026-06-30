@@ -1,0 +1,29 @@
+/* Estilos básicos para o site */
+:root {
+  color-scheme: dark;
+  color: #cbd5e1;
+}
+
+body {
+  background-color: #0f172a;
+  color: #cbd5e1;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded-3xl {
+  border-radius: 1.5rem;
+}

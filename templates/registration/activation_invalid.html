@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Ativação inválida | KVN Tech{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-md rounded-3xl border border-rose-500 bg-slate-950/80 p-8 shadow-2xl shadow-slate-950/20">
+  <h1 class="text-3xl font-semibold text-rose-200">Link inválido</h1>
+  <p class="mt-4 text-slate-300">O link de ativação não é válido ou expirou. Você pode tentar se cadastrar novamente.</p>
+  <p class="mt-4"><a href="{% url 'signup' %}" class="font-semibold text-cyan-300 hover:text-cyan-200">Criar nova conta</a></p>
+</div>
+{% endblock %}
