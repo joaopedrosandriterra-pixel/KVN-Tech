@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}KVN Tech · Sobre{% endblock %}
+
+{% block content %}
+<section class="grid gap-8 py-10 lg:grid-cols-[0.9fr_1.1fr]">
+  <div>
+    <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Sobre</p>
+    <h1 class="mt-3 text-4xl font-semibold">Desenvolvedor focado em soluções reais</h1>
+  </div>
+  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-8 text-slate-300">
+    <p class="leading-8">
+      Somos desenvolvedores apaixonados por transformar ideias em produtos funcionais, com foco em performance, clareza e resultados práticos.
+      Trabalhamos com desenvolvimento web, automações, APIs, infraestrutura e experiências digitais que ajudam pessoas e negócios a crescer.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/laboratorio/" class="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">Ver laboratório</a>
+      <a href="/" class="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200">Voltar para a home</a>
+    </div>
+  </div>
+</section>
+
+<section class="grid gap-6 md:grid-cols-3">
+  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
+    <h2 class="text-xl font-semibold">Web</h2>
+    <p class="mt-3 text-sm text-slate-300">Sites, sistemas, dashboards e experiências modernas.</p>
+  </div>
+  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
+    <h2 class="text-xl font-semibold">Automação</h2>
+    <p class="mt-3 text-sm text-slate-300">Scripts, integrações e processos que economizam tempo.</p>
+  </div>
+  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
+    <h2 class="text-xl font-semibold">Infraestrutura</h2>
+    <p class="mt-3 text-sm text-slate-300">Docker, Linux, bancos e ambientes organizados.</p>
+  </div>
+</section>
+{% endblock %}
