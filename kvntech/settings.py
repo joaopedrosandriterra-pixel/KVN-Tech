@@ -31,7 +31,7 @@ def _load_env_file() -> None:
         key = key.strip()
         value = value.strip().strip('"').strip("'")
 
-        if key:
+        if key and key not in os.environ:
             os.environ[key] = value
 
 
@@ -108,16 +108,14 @@ WSGI_APPLICATION = 'kvntech.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-import os
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
         "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
+        "HOST": os.getenv("DB_HOST", 'db' if os.path.exists('/.dockerenv') else '127.0.0.1'),
+        "PORT": os.getenv("DB_PORT", '5432'),
     }
 }
 
