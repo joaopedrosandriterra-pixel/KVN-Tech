@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.db import transaction
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import url_has_allowed_host_and_scheme
@@ -14,6 +15,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.decorators.http import require_POST
 
 from .forms import SignUpForm
+from .models import Project
 
 
 def home(request):
@@ -50,7 +52,33 @@ def about(request):
 
 
 def laboratory(request):
-    return render(request, 'laboratory.html')
+    projects = (
+        Project.objects.filter(visible=True)
+        .prefetch_related('technologies', 'roadmap_items', 'updates')
+    )
+    return render(request, 'laboratory.html', {'projects': projects})
+
+
+def project_detail(request, slug):
+    project = get_object_or_404(
+        Project.objects.prefetch_related('technologies', 'roadmap_items', 'updates', 'images'),
+        slug=slug,
+        visible=True,
+    )
+    stats = {
+        'roadmap_total': project.total_roadmap_count,
+        'roadmap_done': project.completed_roadmap_count,
+        'updates': project.updates.count(),
+        'technologies': project.technologies.count(),
+        'images': project.images.count(),
+    }
+    return render(request, 'project_detail.html', {'project': project, 'stats': stats})
+
+
+@staff_member_required
+def panel(request):
+    projects = Project.objects.all().prefetch_related('technologies')
+    return render(request, 'panel.html', {'projects': projects})
 
 
 def _apply_input_classes(form):

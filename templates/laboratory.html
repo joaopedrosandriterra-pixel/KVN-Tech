@@ -7,30 +7,76 @@
   <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Laboratório</p>
   <h1 class="mt-3 text-4xl font-semibold">Projetos em andamento, ideias em evolução</h1>
   <p class="mt-4 max-w-3xl text-lg text-slate-300">
-    Aqui ficam experimentos, protótipos e estudos que mostram como estamos aprendendo e expandindo nossas habilidades.
+    Aqui o cliente acompanha processo, método e evolução: planejamento, desenvolvimento, roadmap, imagens e atualizações reais.
   </p>
   <div class="mt-6 flex flex-wrap gap-3">
-    <a href="/sobre/" class="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">Conhecer a história</a>
+    {% if request.user.is_staff %}
+      <a href="{% url 'panel' %}" class="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">Gerenciar projetos</a>
+    {% endif %}
     <a href="/#contato" class="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200">Entrar em contato</a>
   </div>
 </section>
 
 <section class="grid gap-6 md:grid-cols-2">
-  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
-    <h2 class="text-xl font-semibold">IA e automações</h2>
-    <p class="mt-3 text-sm text-slate-300">Fluxos inteligentes, integrações e ferramentas mais úteis para o dia a dia.</p>
-  </div>
-  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
-    <h2 class="text-xl font-semibold">Jogos e experiências interativas</h2>
-    <p class="mt-3 text-sm text-slate-300">Sistemas, NPCs, combate e interfaces com foco em gameplay.</p>
-  </div>
-  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
-    <h2 class="text-xl font-semibold">Frameworks web</h2>
-    <p class="mt-3 text-sm text-slate-300">Estudos com Django, APIs e arquitetura limpa para escalar projetos.</p>
-  </div>
-  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
-    <h2 class="text-xl font-semibold">Infraestrutura e containers</h2>
-    <p class="mt-3 text-sm text-slate-300">Docker, ambientes Linux e organização para desenvolvimento e deploy.</p>
-  </div>
+  {% for project in projects %}
+    <article class="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70">
+      {% if project.thumbnail %}
+        <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="h-52 w-full object-cover">
+      {% else %}
+        <div class="flex h-52 items-center justify-center bg-gradient-to-br from-slate-900 via-cyan-950 to-slate-950">
+          <span class="text-5xl font-bold text-cyan-300">{{ project.title|first }}</span>
+        </div>
+      {% endif %}
+
+      <div class="p-6">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-cyan-400">{{ project.get_status_display }}</p>
+            <h2 class="mt-2 text-2xl font-semibold">{{ project.title }}</h2>
+          </div>
+          <span class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300">{{ project.progress }}%</span>
+        </div>
+
+        <progress value="{{ project.progress }}" max="100" class="mt-5 h-2 w-full overflow-hidden rounded-full accent-cyan-400"></progress>
+
+        <p class="mt-5 text-sm leading-6 text-slate-300">{{ project.short_description }}</p>
+
+        <div class="mt-5 flex flex-wrap gap-2">
+          {% for tech in project.technologies.all %}
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300">{{ tech.name }}</span>
+          {% empty %}
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-400">Tecnologias em definição</span>
+          {% endfor %}
+        </div>
+
+        <div class="mt-6 grid gap-3 text-sm text-slate-300 sm:grid-cols-3">
+          <div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
+            <span class="block text-lg font-semibold text-white">{{ project.completed_roadmap_count }}/{{ project.total_roadmap_count }}</span>
+            etapas prontas
+          </div>
+          <div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
+            <span class="block text-lg font-semibold text-white">{{ project.updates.count }}</span>
+            atualizações
+          </div>
+          <div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
+            <span class="block text-lg font-semibold text-white">{{ project.updated_at|date:"d/m" }}</span>
+            última atualização
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="{{ project.get_absolute_url }}" class="rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">Ver detalhes</a>
+          {% if project.demo %}
+            <a href="{{ project.demo }}" target="_blank" rel="noopener noreferrer" class="rounded-full border border-slate-700 px-5 py-3 text-sm font-medium text-slate-100 hover:border-cyan-400 hover:text-cyan-300">Testar demo</a>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+  {% empty %}
+    <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-8 md:col-span-2">
+      <h2 class="text-2xl font-semibold">Nenhum projeto visível ainda</h2>
+      <p class="mt-3 text-slate-300">Cadastre o primeiro projeto pelo admin para alimentar automaticamente o Laboratório.</p>
+    </div>
+  {% endfor %}
 </section>
 {% endblock %}
