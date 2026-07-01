@@ -53,10 +53,13 @@ def _get_database_host() -> str:
 SECRET_KEY = 'django-insecure-gc5)uwr*xi@fx&q^mcehzlfku99cf*29ca!9eb$9ylzu0bbo=2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['servidor.taileb10d1.ts.net',]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://servidor.taileb10d1.ts.net",
+]
 
 # Application definition
 
