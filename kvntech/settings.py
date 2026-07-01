@@ -57,8 +57,9 @@ DEBUG = _get_bool_env('DEBUG', False)
 
 ALLOWED_HOSTS = _get_list_env('ALLOWED_HOSTS', 'servidor.taileb10d1.ts.net,localhost,127.0.0.1')
 
-CSRF_TRUSTED_ORIGINS = _get_list_env('CSRF_TRUSTED_ORIGINS', 'https://servidor.taileb10d1.ts.net')
+CSRF_TRUSTED_ORIGINS = _get_list_env('CSRF_TRUSTED_ORIGINS', 'https://servidor.taileb10d1.ts.net',)
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
