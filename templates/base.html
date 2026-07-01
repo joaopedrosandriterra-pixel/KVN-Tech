@@ -18,7 +18,10 @@
         <a href="/#contato" class="hover:text-cyan-400">Contato</a>
         {% if request.user.is_authenticated %}
           <span class="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-slate-300">Olá, {{ request.user.get_full_name|default:request.user.username }}</span>
-          <a href="{% url 'logout' %}" class="rounded-full border border-slate-700 px-5 py-2 text-sm font-medium text-slate-100 hover:border-cyan-400 hover:text-cyan-300">Sair</a>
+          <form method="post" action="{% url 'logout' %}" class="m-0">
+            {% csrf_token %}
+            <button type="submit" class="rounded-full border border-slate-700 px-5 py-2 text-sm font-medium text-slate-100 hover:border-cyan-400 hover:text-cyan-300">Sair</button>
+          </form>
         {% else %}
           <a href="{% url 'login' %}" class="rounded-full border border-cyan-500 bg-cyan-500/10 px-5 py-2 text-sm font-semibold text-cyan-200 hover:bg-cyan-500/20">Entrar</a>
         {% endif %}

@@ -1,14 +1,17 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.db import transaction
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views.decorators.http import require_POST
 
 from .forms import SignUpForm
 
@@ -52,10 +55,29 @@ def laboratory(request):
 
 def _apply_input_classes(form):
     for field in form.visible_fields():
+        autocomplete = {
+            'username': 'username',
+            'email': 'email',
+            'password': 'current-password',
+            'password1': 'new-password',
+            'password2': 'new-password',
+            'full_name': 'name',
+        }.get(field.name, 'off')
         field.field.widget.attrs.update({
             'class': 'mt-2 block w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20',
-            'autocomplete': 'off',
+            'autocomplete': autocomplete,
         })
+
+
+def _safe_next_url(request):
+    next_url = request.POST.get('next') or request.GET.get('next')
+    if url_has_allowed_host_and_scheme(
+        next_url,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return next_url
+    return None
 
 
 def login_view(request):
@@ -67,14 +89,18 @@ def login_view(request):
         if form.is_valid():
             login(request, form.get_user())
             messages.success(request, 'Bem-vindo de volta!')
-            return redirect('home')
+            return redirect(_safe_next_url(request) or 'home')
     else:
         form = AuthenticationForm(request)
 
     _apply_input_classes(form)
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'registration/login.html', {
+        'form': form,
+        'next': _safe_next_url(request) or '',
+    })
 
 
+@require_POST
 def logout_view(request):
     logout(request)
     messages.success(request, 'Você saiu com sucesso.')
@@ -88,11 +114,16 @@ def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            _send_activation_email(request, user)
-            return render(request, 'registration/activation_sent.html', {'email': user.email})
+            try:
+                with transaction.atomic():
+                    user = form.save(commit=False)
+                    user.is_active = False
+                    user.save()
+                    _send_activation_email(request, user)
+            except Exception:
+                messages.error(request, 'Não foi possível enviar o e-mail de ativação agora. Tente novamente em instantes.')
+            else:
+                return render(request, 'registration/activation_sent.html', {'email': user.email})
     else:
         form = SignUpForm()
 
@@ -108,9 +139,12 @@ def activate(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
+    if user is not None and user.is_active:
+        return render(request, 'registration/activation_complete.html')
+
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
-        user.save()
+        user.save(update_fields=['is_active'])
         return render(request, 'registration/activation_complete.html')
 
     return render(request, 'registration/activation_invalid.html')
@@ -122,7 +156,7 @@ def _send_activation_email(request, user):
         'domain': request.get_host(),
         'uidb64': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': default_token_generator.make_token(user),
-        'protocol': request.scheme,
+        'protocol': 'https' if request.is_secure() else 'http',
     }
     subject = 'Ative sua conta no KVN Tech'
     message = render_to_string('registration/activation_email.html', context)

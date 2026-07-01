@@ -38,28 +38,26 @@ def _load_env_file() -> None:
 _load_env_file()
 
 
-def _get_database_host() -> str:
-    if os.getenv('DB_HOST'):
-        return os.getenv('DB_HOST', '127.0.0.1')
-    if os.path.exists('/.dockerenv'):
-        return 'db'
-    return '127.0.0.1'
+def _get_bool_env(name: str, default: bool = False) -> bool:
+    return os.getenv(name, str(default)).lower() in ('true', '1', 'yes', 'on')
+
+
+def _get_list_env(name: str, default: str = '') -> list[str]:
+    return [item.strip() for item in os.getenv(name, default).split(',') if item.strip()]
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gc5)uwr*xi@fx&q^mcehzlfku99cf*29ca!9eb$9ylzu0bbo=2'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-gc5)uwr*xi@fx&q^mcehzlfku99cf*29ca!9eb$9ylzu0bbo=2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = _get_bool_env('DEBUG', False)
 
-ALLOWED_HOSTS = ['servidor.taileb10d1.ts.net',]
+ALLOWED_HOSTS = _get_list_env('ALLOWED_HOSTS', 'servidor.taileb10d1.ts.net,localhost,127.0.0.1')
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://servidor.taileb10d1.ts.net",
-]
+CSRF_TRUSTED_ORIGINS = _get_list_env('CSRF_TRUSTED_ORIGINS', 'https://servidor.taileb10d1.ts.net')
 
 # Application definition
 
@@ -111,16 +109,28 @@ WSGI_APPLICATION = 'kvntech.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST", 'db' if os.path.exists('/.dockerenv') else '127.0.0.1'),
-        "PORT": os.getenv("DB_PORT", '5432'),
+POSTGRES_NAME = os.getenv('DB_NAME') or os.getenv('POSTGRES_DB')
+POSTGRES_USER = os.getenv('DB_USER') or os.getenv('POSTGRES_USER')
+POSTGRES_PASSWORD = os.getenv('DB_PASSWORD') or os.getenv('POSTGRES_PASSWORD')
+
+if not _get_bool_env('USE_SQLITE', False) and POSTGRES_NAME and POSTGRES_USER:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': POSTGRES_NAME,
+            'USER': POSTGRES_USER,
+            'PASSWORD': POSTGRES_PASSWORD,
+            'HOST': os.getenv('DB_HOST', 'db' if os.path.exists('/.dockerenv') else '127.0.0.1'),
+            'PORT': os.getenv('DB_PORT', '5432'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -171,6 +181,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' if EMAIL_HOST else
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'no-reply@kvn-tech-ofc.com')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
