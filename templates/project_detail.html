@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} | KVN Tech{% endblock %}
+
+{% block content %}
+<section class="grid gap-8 py-10 lg:grid-cols-[1.1fr_0.9fr]">
+  <div>
+    <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">{{ project.get_status_display }}</p>
+    <h1 class="mt-3 text-4xl font-semibold">{{ project.title }}</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-300">{{ project.full_description }}</p>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      {% for tech in project.technologies.all %}
+        <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">{{ tech.name }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      {% if project.demo %}
+        <a href="{{ project.demo }}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">Testar demo</a>
+      {% endif %}
+      {% if project.github %}
+        <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="rounded-full border border-slate-700 px-5 py-3 text-sm font-medium text-slate-100 hover:border-cyan-400 hover:text-cyan-300">Ver GitHub</a>
+      {% endif %}
+      <a href="{% url 'laboratory' %}" class="rounded-full border border-slate-700 px-5 py-3 text-sm font-medium text-slate-100 hover:border-cyan-400 hover:text-cyan-300">Voltar</a>
+    </div>
+  </div>
+
+  <div class="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70">
+    {% if project.thumbnail %}
+      <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="h-80 w-full object-cover">
+    {% else %}
+      <div class="flex h-80 items-center justify-center bg-gradient-to-br from-slate-900 via-cyan-950 to-slate-950">
+        <span class="text-7xl font-bold text-cyan-300">{{ project.title|first }}</span>
+      </div>
+    {% endif %}
+    <div class="p-6">
+      <div class="flex items-center justify-between gap-4">
+        <span class="text-sm text-slate-300">Progresso geral</span>
+        <span class="text-sm font-semibold text-cyan-300">{{ project.progress }}%</span>
+      </div>
+      <progress value="{{ project.progress }}" max="100" class="mt-3 h-3 w-full overflow-hidden rounded-full accent-cyan-400"></progress>
+    </div>
+  </div>
+</section>
+
+<section class="grid gap-4 md:grid-cols-5">
+  <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+    <span class="block text-2xl font-semibold">{{ stats.roadmap_done }}/{{ stats.roadmap_total }}</span>
+    <span class="text-sm text-slate-400">etapas prontas</span>
+  </div>
+  <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+    <span class="block text-2xl font-semibold">{{ stats.updates }}</span>
+    <span class="text-sm text-slate-400">atualizações</span>
+  </div>
+  <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+    <span class="block text-2xl font-semibold">{{ stats.technologies }}</span>
+    <span class="text-sm text-slate-400">tecnologias</span>
+  </div>
+  <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+    <span class="block text-2xl font-semibold">{{ stats.images }}</span>
+    <span class="text-sm text-slate-400">imagens</span>
+  </div>
+  <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+    <span class="block text-2xl font-semibold">{{ project.updated_at|date:"d/m" }}</span>
+    <span class="text-sm text-slate-400">última mudança</span>
+  </div>
+</section>
+
+<section class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+  <div>
+    <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Roadmap</p>
+    <h2 class="mt-3 text-3xl font-semibold">O que já está pronto</h2>
+    <div class="mt-6 space-y-4">
+      {% for item in project.roadmap_items.all %}
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-semibold">{{ item.title }}</h3>
+              {% if item.description %}<p class="mt-2 text-sm text-slate-400">{{ item.description }}</p>{% endif %}
+            </div>
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300">{{ item.get_status_display }}</span>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-slate-400">Roadmap ainda não cadastrado.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div>
+    <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Diário</p>
+    <h2 class="mt-3 text-3xl font-semibold">Linha do tempo</h2>
+    <div class="mt-6 space-y-5 border-l border-slate-800 pl-5">
+      {% for update in project.updates.all %}
+        <article class="relative rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+          <span class="absolute -left-[31px] top-6 h-3 w-3 rounded-full bg-cyan-400"></span>
+          <time class="text-xs uppercase tracking-[0.2em] text-cyan-400">{{ update.created_at|date:"d/m/Y" }}</time>
+          <h3 class="mt-2 font-semibold">{{ update.title }}</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-300">{{ update.content }}</p>
+          {% if update.image %}
+            <img src="{{ update.image.url }}" alt="{{ update.title }}" class="mt-4 max-h-64 w-full rounded-2xl object-cover">
+          {% endif %}
+        </article>
+      {% empty %}
+        <p class="text-slate-400">Nenhuma atualização publicada ainda.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if project.images.all %}
+<section>
+  <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Galeria</p>
+  <h2 class="mt-3 text-3xl font-semibold">Capturas e processo visual</h2>
+  <div class="mt-6 grid gap-6 md:grid-cols-3">
+    {% for image in project.images.all %}
+      <figure class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/70">
+        <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" class="h-56 w-full object-cover">
+        {% if image.caption %}<figcaption class="p-4 text-sm text-slate-300">{{ image.caption }}</figcaption>{% endif %}
+      </figure>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

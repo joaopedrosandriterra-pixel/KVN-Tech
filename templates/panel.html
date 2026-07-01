@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel | KVN Tech{% endblock %}
+
+{% block content %}
+<section class="py-10">
+  <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Painel</p>
+  <h1 class="mt-3 text-4xl font-semibold">Gerenciar Laboratório</h1>
+  <p class="mt-4 max-w-3xl text-lg text-slate-300">
+    Cadastre projetos, tecnologias, roadmap, galeria e diário de desenvolvimento por aqui.
+  </p>
+  <div class="mt-6 flex flex-wrap gap-3">
+    <a href="/admin/main/project/add/" class="rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">Novo projeto</a>
+    <a href="/admin/main/technology/add/" class="rounded-full border border-slate-700 px-5 py-3 text-sm font-medium text-slate-100 hover:border-cyan-400 hover:text-cyan-300">Nova tecnologia</a>
+    <a href="{% url 'laboratory' %}" class="rounded-full border border-slate-700 px-5 py-3 text-sm font-medium text-slate-100 hover:border-cyan-400 hover:text-cyan-300">Ver Laboratório</a>
+  </div>
+</section>
+
+<section class="grid gap-4">
+  {% for project in projects %}
+    <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-semibold">{{ project.title }}</h2>
+          <p class="mt-1 text-sm text-slate-400">{{ project.get_status_display }} · {{ project.progress }}% · {% if project.visible %}visível{% else %}oculto{% endif %}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="{{ project.get_absolute_url }}" class="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-cyan-400 hover:text-cyan-300">Abrir</a>
+          <a href="/admin/main/project/{{ project.id }}/change/" class="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">Editar</a>
+        </div>
+      </div>
+    </article>
+  {% empty %}
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
+      <p class="text-slate-300">Nenhum projeto cadastrado ainda.</p>
+    </div>
+  {% endfor %}
+</section>
+{% endblock %}
