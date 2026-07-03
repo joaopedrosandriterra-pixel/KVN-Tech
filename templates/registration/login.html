@@ -3,25 +3,67 @@
 {% block title %}Entrar | KVN Tech{% endblock %}
 
 {% block content %}
-<div class="mx-auto w-full max-w-md rounded-3xl border border-slate-800 bg-slate-950/80 p-8 shadow-2xl shadow-slate-950/20">
-  <h1 class="text-3xl font-semibold text-white">Entrar</h1>
-  <p class="mt-2 text-slate-400">Use seu cadastro para acessar o painel.</p>
+<div class="mx-auto w-full max-w-md rounded-3xl border border-slate-800 bg-slate-950/80 p-8 shadow-2xl">
+  <h1 class="text-3xl font-bold bg-gradient-to-r from-white to-slate-350 bg-clip-text text-transparent">Entrar</h1>
+  <p class="mt-2 text-slate-400 text-sm">Use seu cadastro para acessar sua conta.</p>
+  
   <form method="post" class="mt-8 space-y-5">
     {% csrf_token %}
     {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
-    {{ form.non_field_errors }}
+    
+    <!-- Non-field Errors -->
+    {% if form.non_field_errors %}
+      <div class="rounded-2xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400 space-y-1.5">
+        {% for error in form.non_field_errors %}
+          <p class="flex items-center gap-2">
+            <svg class="h-4.5 w-4.5 shrink-0 text-red-450" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>{{ error }}</span>
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Username -->
     <div>
-      {{ form.username.label_tag }}
+      <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-slate-300">
+        {{ form.username.label }}
+      </label>
       {{ form.username }}
-      {{ form.username.errors }}
+      {% if form.username.errors %}
+        <div class="mt-2 space-y-1">
+          {% for error in form.username.errors %}
+            <p class="text-xs text-red-400 flex items-center gap-1.5">
+              <span class="h-1 w-1 rounded-full bg-red-500 shrink-0"></span>
+              <span>{{ error }}</span>
+            </p>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
+
+    <!-- Password -->
     <div>
-      {{ form.password.label_tag }}
+      <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-slate-300">
+        {{ form.password.label }}
+      </label>
       {{ form.password }}
-      {{ form.password.errors }}
+      {% if form.password.errors %}
+        <div class="mt-2 space-y-1">
+          {% for error in form.password.errors %}
+            <p class="text-xs text-red-400 flex items-center gap-1.5">
+              <span class="h-1 w-1 rounded-full bg-red-500 shrink-0"></span>
+              <span>{{ error }}</span>
+            </p>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
+
     <button type="submit" class="mt-4 w-full rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">Entrar</button>
   </form>
-  <p class="mt-6 text-center text-slate-400">Não tem conta? <a href="{% url 'signup' %}" class="font-semibold text-cyan-300 hover:text-cyan-200">Criar conta</a></p>
+  
+  <p class="mt-6 text-center text-sm text-slate-400">Não tem conta? <a href="{% url 'signup' %}" class="font-semibold text-cyan-300 hover:text-cyan-200 transition">Criar conta</a></p>
 </div>
 {% endblock %}

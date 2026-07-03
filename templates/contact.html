@@ -1,0 +1,349 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contato | KVN Tech{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="text-center max-w-3xl mx-auto mb-16">
+    <p class="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold mb-3">Contato</p>
+    <h1 class="text-4xl font-extrabold sm:text-5xl bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
+      Vamos tirar seu projeto do papel.
+    </h1>
+    <p class="mt-4 text-lg text-slate-400">
+      Conte um pouco sobre sua ideia. Responderemos o mais rápido possível.
+    </p>
+  </div>
+
+  <!-- Contact Cards Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+    <!-- Email Card -->
+    <a href="mailto:kvn.techofc@gmail.com"
+       class="group relative rounded-2xl border border-slate-800 bg-slate-900/40 p-6 transition duration-300 hover:border-cyan-500/30 hover:bg-slate-900/60 hover:shadow-[0_0_20px_rgba(34,211,238,0.05)]">
+      <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+      <div class="flex items-center gap-4">
+        <div class="rounded-xl bg-cyan-500/10 p-3 text-cyan-400 group-hover:scale-110 transition duration-300">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-medium text-slate-300">E-mail</h3>
+          <p class="mt-1 text-sm text-slate-400 group-hover:text-cyan-300 transition duration-300">kvn.techofc@gmail.com</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- WhatsApp Card -->
+    <a href="https://wa.me/5563999350398" target="_blank" rel="noopener noreferrer"
+       class="group relative rounded-2xl border border-slate-800 bg-slate-900/40 p-6 transition duration-300 hover:border-emerald-500/30 hover:bg-slate-900/60 hover:shadow-[0_0_20px_rgba(16,185,129,0.05)]">
+      <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+      <div class="flex items-center gap-4">
+        <div class="rounded-xl bg-emerald-500/10 p-3 text-emerald-400 group-hover:scale-110 transition duration-300">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-medium text-slate-300">WhatsApp</h3>
+          <p class="mt-1 text-sm text-slate-400 group-hover:text-emerald-400 transition duration-300">(63) 99935-0398</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- GitHub Card -->
+    <a href="https://github.com/kvn-tech-ofc" target="_blank" rel="noopener noreferrer"
+       class="group relative rounded-2xl border border-slate-800 bg-slate-900/40 p-6 transition duration-300 hover:border-purple-500/30 hover:bg-slate-900/60 hover:shadow-[0_0_20px_rgba(168,85,247,0.05)]">
+      <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"></div>
+      <div class="flex items-center gap-4">
+        <div class="rounded-xl bg-purple-500/10 p-3 text-purple-400 group-hover:scale-110 transition duration-300">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-medium text-slate-300">GitHub</h3>
+          <p class="mt-1 text-sm text-slate-400 group-hover:text-purple-300 transition duration-300">github.com/kvn-tech-ofc</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- LinkedIn Card -->
+    <a href="https://www.linkedin.com/in/kvn-tech-30a64541b/" target="_blank" rel="noopener noreferrer"
+       class="group relative rounded-2xl border border-slate-800 bg-slate-900/40 p-6 transition duration-300 hover:border-blue-500/30 hover:bg-slate-900/60 hover:shadow-[0_0_20px_rgba(59,130,246,0.05)]">
+      <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
+      <div class="flex items-center gap-4">
+        <div class="rounded-xl bg-blue-500/10 p-3 text-blue-400 group-hover:scale-110 transition duration-300">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-medium text-slate-300">LinkedIn</h3>
+          <p class="mt-1 text-sm text-slate-400 group-hover:text-blue-300 transition duration-300">linkedin.com/company/kvn-tech</p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="max-w-3xl mx-auto">
+    {% if request.user.is_authenticated and request.user.is_active %}
+    <!-- Smart Form -->
+    <div class="relative rounded-3xl border border-slate-800 bg-slate-900/30 backdrop-blur-md p-8 sm:p-10 shadow-2xl">
+      <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
+      <form method="post" action="{% url 'contact' %}" class="space-y-6">
+        {% csrf_token %}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Nome -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-slate-300">Nome <span class="text-cyan-400">*</span></label>
+            <input type="text" id="name" name="name" required
+                   value="{{ posted_data.name|default:request.user.get_full_name|default:request.user.username }}"
+                   autocomplete="name"
+                   class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20" />
+          </div>
+          <!-- Empresa -->
+          <div>
+            <label for="company" class="block text-sm font-medium text-slate-300">Empresa (Opcional)</label>
+            <input type="text" id="company" name="company" placeholder="Ex: Empresa XPTO"
+                   value="{{ posted_data.company|default:'' }}"
+                   autocomplete="organization"
+                   class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-300">E-mail <span class="text-cyan-400">*</span></label>
+            <input type="email" id="email" name="email" required
+                   value="{{ posted_data.email|default:request.user.email }}"
+                   autocomplete="email"
+                   class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20" />
+          </div>
+          <!-- Telefone -->
+          <div>
+            <label for="phone" class="block text-sm font-medium text-slate-300">Telefone</label>
+            <input type="text" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX"
+                   value="{{ posted_data.phone|default:'' }}"
+                   autocomplete="tel"
+                   class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20" />
+          </div>
+        </div>
+
+        <!-- Qual Serviço? -->
+        <div>
+          <label for="service" class="block text-sm font-medium text-slate-300">Qual serviço? <span class="text-cyan-400">*</span></label>
+          <select id="service" name="service" required class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 appearance-none">
+            <option value="" disabled {% if not posted_data.service %}selected{% endif %}>Selecione um serviço...</option>
+            <option value="Desenvolvimento Web" {% if posted_data.service == 'Desenvolvimento Web' %}selected{% endif %}>Desenvolvimento Web</option>
+            <option value="Aplicativo" {% if posted_data.service == 'Aplicativo' %}selected{% endif %}>Aplicativo</option>
+            <option value="Sistema" {% if posted_data.service == 'Sistema' %}selected{% endif %}>Sistema</option>
+            <option value="Roblox" {% if posted_data.service == 'Roblox' %}selected{% endif %}>Roblox</option>
+            <option value="API" {% if posted_data.service == 'API' %}selected{% endif %}>API</option>
+            <option value="Consultoria" {% if posted_data.service == 'Consultoria' %}selected{% endif %}>Consultoria</option>
+            <option value="Outro" {% if posted_data.service == 'Outro' %}selected{% endif %}>Outro</option>
+          </select>
+        </div>
+
+        <!-- Dynamic Questions Container -->
+        <div id="dynamic-questions" class="hidden overflow-hidden transition-all duration-500 ease-in-out rounded-2xl border border-slate-800/80 bg-slate-950/60 p-6 space-y-6">
+          <!-- Web Specific Fields -->
+          <div id="web-fields" class="hidden space-y-6">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-cyan-400">Especificações do Site</h4>
+            <div>
+              <label for="web_pages" class="block text-sm text-slate-300">Quantas páginas?</label>
+              <input type="text" id="web_pages" name="web_pages" placeholder="Ex: Página única, 5 páginas"
+                     value="{{ posted_data.web_pages|default:'' }}"
+                     class="mt-2 block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm text-slate-300 mb-2">Já possui domínio?</label>
+                <select name="web_domain"
+                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
+                  <option value="Não" {% if posted_data.web_domain == 'Não' %}selected{% endif %}>Não</option>
+                  <option value="Sim" {% if posted_data.web_domain == 'Sim' %}selected{% endif %}>Sim</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm text-slate-300 mb-2">Tem identidade visual?</label>
+                <select name="web_visual_identity"
+                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
+                  <option value="Não" {% if posted_data.web_visual_identity == 'Não' %}selected{% endif %}>Não</option>
+                  <option value="Sim" {% if posted_data.web_visual_identity == 'Sim' %}selected{% endif %}>Sim</option>
+                  <option value="Preciso criar" {% if posted_data.web_visual_identity == 'Preciso criar' %}selected{% endif %}>Preciso criar</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sistema Specific Fields -->
+          <div id="sys-fields" class="hidden space-y-6">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-cyan-400">Especificações do Sistema</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm text-slate-300 mb-2">Login de usuário?</label>
+                <select name="sys_login"
+                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
+                  <option value="Não" {% if posted_data.sys_login == 'Não' %}selected{% endif %}>Não</option>
+                  <option value="Sim" {% if posted_data.sys_login == 'Sim' %}selected{% endif %}>Sim</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm text-slate-300 mb-2">Banco de dados?</label>
+                <select name="sys_db"
+                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
+                  <option value="Não" {% if posted_data.sys_db == 'Não' %}selected{% endif %}>Não</option>
+                  <option value="Sim" {% if posted_data.sys_db == 'Sim' %}selected{% endif %}>Sim</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="sys_users" class="block text-sm text-slate-300">Quantos usuários estimados?</label>
+              <input type="text" id="sys_users" name="sys_users" placeholder="Ex: Interno (10), Público (1000+)"
+                     value="{{ posted_data.sys_users|default:'' }}"
+                     class="mt-2 block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400" />
+            </div>
+          </div>
+
+          <!-- Roblox Specific Fields -->
+          <div id="roblox-fields" class="hidden space-y-6">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-cyan-400">Especificações do Jogo Roblox</h4>
+            <div>
+              <label for="roblox_game_type" class="block text-sm text-slate-300">Tipo de jogo (Gênero)?</label>
+              <input type="text" id="roblox_game_type" name="roblox_game_type"
+                     placeholder="Ex: Tycoon, Simulator, RPG, Obstáculos"
+                     value="{{ posted_data.roblox_game_type|default:'' }}"
+                     class="mt-2 block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm text-slate-300 mb-2">Scripts?</label>
+                <select name="roblox_scripts"
+                        class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400">
+                  <option value="Não" {% if posted_data.roblox_scripts == 'Não' %}selected{% endif %}>Não</option>
+                  <option value="Sim" {% if posted_data.roblox_scripts == 'Sim' %}selected{% endif %}>Sim</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm text-slate-300 mb-2">Modelagem?</label>
+                <select name="roblox_modeling"
+                        class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400">
+                  <option value="Não" {% if posted_data.roblox_modeling == 'Não' %}selected{% endif %}>Não</option>
+                  <option value="Sim" {% if posted_data.roblox_modeling == 'Sim' %}selected{% endif %}>Sim</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm text-slate-300 mb-2">Interface (UI)?</label>
+                <select name="roblox_ui"
+                        class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400">
+                  <option value="Não" {% if posted_data.roblox_ui == 'Não' %}selected{% endif %}>Não</option>
+                  <option value="Sim" {% if posted_data.roblox_ui == 'Sim' %}selected{% endif %}>Sim</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orçamento previsto -->
+        <div>
+          <span class="block text-sm font-medium text-slate-300 mb-3">Orçamento previsto <span class="text-cyan-400">*</span></span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+              <input type="radio" name="budget" value="Ainda não sei" required {% if posted_data.budget == 'Ainda não sei' %}checked{% endif %} class="sr-only" />
+              <span class="text-sm font-semibold text-slate-200 text-center">Ainda não sei</span>
+            </label>
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+              <input type="radio" name="budget" value="Até R$500" {% if posted_data.budget == 'Até R$500' %}checked{% endif %} class="sr-only" />
+              <span class="text-sm font-semibold text-slate-200 text-center">Até R$500</span>
+            </label>
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+              <input type="radio" name="budget" value="R$500-1.500" {% if posted_data.budget == 'R$500-1.500' %}checked{% endif %} class="sr-only" />
+              <span class="text-sm font-semibold text-slate-200 text-center">R$500–1.500</span>
+            </label>
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+              <input type="radio" name="budget" value="R$1.500-5.000" {% if posted_data.budget == 'R$1.500-5.000' %}checked{% endif %} class="sr-only" />
+              <span class="text-sm font-semibold text-slate-200 text-center">R$1.500–5.000</span>
+            </label>
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+              <input type="radio" name="budget" value="Acima de R$5.000" {% if posted_data.budget == 'Acima de R$5.000' %}checked{% endif %} class="sr-only" />
+              <span class="text-sm font-semibold text-slate-200 text-center">Acima R$5k</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Prazo -->
+        <div>
+          <label for="deadline" class="block text-sm font-medium text-slate-300">Prazo <span class="text-cyan-400">*</span></label>
+          <select id="deadline" name="deadline" required class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 appearance-none">
+            <option value="" disabled {% if not posted_data.deadline %}selected{% endif %}>Selecione um prazo...</option>
+                        <option value="Sem urgência" {% if posted_data.deadline == 'Sem prazo' or posted_data.deadline == 'Sem urgência' %}selected{% endif %}>Sem urgência</option>
+            <option value="30 dias" {% if posted_data.deadline == '30 dias' %}selected{% endif %}>30 dias</option>
+            <option value="15 dias" {% if posted_data.deadline == '15 dias' %}selected{% endif %}>15 dias</option>
+            <option value="Urgente" {% if posted_data.deadline == 'Urgente' %}selected{% endif %}>Urgente</option>
+          </select>
+        </div>
+
+        <!-- Conte sobre seu projeto -->
+        <div>
+          <label for="message" class="block text-sm font-medium text-slate-300">Conte sobre seu projeto <span class="text-cyan-400">*</span></label>
+          <textarea id="message" name="message" required rows="5"
+                    placeholder="Fale um pouco sobre sua ideia, os objetivos do projeto e o que precisa ser desenvolvido..."
+                    class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20">{{ posted_data.message|default:'' }}</textarea>
+        </div>
+
+        <!-- Consentimento e Enviar -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-slate-800/80">
+          <label class="inline-flex items-center gap-3 cursor-pointer text-slate-300 text-sm">
+            <input type="checkbox" name="accept_contact" required {% if posted_data.accept_contact %}checked{% endif %}
+                   class="rounded border-slate-700 bg-slate-950 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-slate-950" />
+            <span>Aceito ser contatado.</span>
+          </label>
+          <button type="submit" id="submit-btn"
+                  class="relative group overflow-hidden rounded-2xl bg-cyan-500 px-8 py-4 font-semibold text-slate-950 shadow-lg shadow-cyan-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-cyan-400/30">
+            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-400 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span class="relative z-10 flex items-center justify-center gap-2" id="submit-btn-text">
+              🚀 Solicitar orçamento
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+    {% else %}
+    <!-- Auth Warning -->
+    <div class="relative rounded-3xl border border-slate-800 bg-slate-900/30 p-8 sm:p-12 text-center shadow-2xl">
+      <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400 mb-6">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-slate-100">Deseja solicitar um orçamento?</h3>
+      {% if request.user.is_authenticated and not request.user.is_active %}
+      <p class="mt-4 text-slate-400 max-w-lg mx-auto">
+        Sua conta ainda não foi verificada. Por favor, clique no link de confirmação que enviamos para o seu e-mail <strong>{{ request.user.email }}</strong> para poder preencher o formulário.
+      </p>
+      <div class="mt-8 flex justify-center gap-4">
+        <a href="{% url 'home' %}" class="rounded-2xl border border-slate-700 px-6 py-3.5 text-sm font-semibold text-slate-300 hover:border-cyan-500/30 hover:text-cyan-300 transition duration-300">Voltar ao Início</a>
+      </div>
+      {% else %}
+      <p class="mt-4 text-slate-400 max-w-lg mx-auto">
+        Para nos contar mais sobre o seu projeto e preencher o formulário inteligente, você precisa estar cadastrado e logado na plataforma. Isso garante a segurança e agilidade da nossa comunicação.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a href="{% url 'login' %}?next={% url 'contact' %}" class="w-full sm:w-auto rounded-2xl bg-cyan-500 px-8 py-3.5 text-sm font-semibold text-slate-950 hover:bg-cyan-400 transition duration-300">Entrar na minha Conta</a>
+        <a href="{% url 'signup' %}" class="w-full sm:w-auto rounded-2xl border border-slate-700 px-8 py-3.5 text-sm font-semibold text-slate-300 hover:border-cyan-500/30 hover:text-cyan-300 transition duration-300">Criar uma Conta</a>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+<script src="{% static 'js/contact.js' %}" defer></script>

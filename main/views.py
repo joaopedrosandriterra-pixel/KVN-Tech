@@ -15,7 +15,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.decorators.http import require_POST
 
 from .forms import SignUpForm
-from .models import Project
+from .models import Contact, Project
 
 
 def home(request):
@@ -78,7 +78,71 @@ def project_detail(request, slug):
 @staff_member_required
 def panel(request):
     projects = Project.objects.all().prefetch_related('technologies')
-    return render(request, 'panel.html', {'projects': projects})
+    contacts = Contact.objects.all()
+    return render(request, 'panel.html', {'projects': projects, 'contacts': contacts})
+
+
+@staff_member_required
+@require_POST
+def delete_contact(request, contact_id):
+    contact = get_object_or_404(Contact, id=contact_id)
+    contact.delete()
+    messages.success(request, 'Solicitação excluída com sucesso.')
+    return redirect('panel')
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        if not (request.user.is_authenticated and request.user.is_active):
+            messages.error(request, 'Você precisa estar cadastrado, logado e verificado para enviar uma solicitação.')
+            return redirect('login')
+
+        name = request.POST.get('name', '').strip()
+        company = request.POST.get('company', '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        service = request.POST.get('service', '').strip()
+        budget = request.POST.get('budget', '').strip()
+        deadline = request.POST.get('deadline', '').strip()
+        message = request.POST.get('message', '').strip()
+        accept_contact = request.POST.get('accept_contact')
+
+        if not name or not email or not service or not budget or not deadline or not message or not accept_contact:
+            messages.error(request, 'Por favor, preencha todos os campos obrigatórios e aceite ser contatado.')
+            return render(request, 'contact.html', {'posted_data': request.POST})
+
+        dynamic_data = {}
+        if service == 'Desenvolvimento Web':
+            dynamic_data['Quantas páginas?'] = request.POST.get('web_pages', '').strip()
+            dynamic_data['Já possui domínio?'] = request.POST.get('web_domain', 'Não').strip()
+            dynamic_data['Tem identidade visual?'] = request.POST.get('web_visual_identity', 'Não').strip()
+        elif service == 'Sistema':
+            dynamic_data['Login?'] = request.POST.get('sys_login', 'Não').strip()
+            dynamic_data['Banco de dados?'] = request.POST.get('sys_db', 'Não').strip()
+            dynamic_data['Quantos usuários?'] = request.POST.get('sys_users', '').strip()
+        elif service == 'Roblox':
+            dynamic_data['Tipo do jogo?'] = request.POST.get('roblox_game_type', '').strip()
+            dynamic_data['Scripts?'] = request.POST.get('roblox_scripts', 'Não').strip()
+            dynamic_data['Modelagem?'] = request.POST.get('roblox_modeling', 'Não').strip()
+            dynamic_data['Interface?'] = request.POST.get('roblox_ui', 'Não').strip()
+
+        Contact.objects.create(
+            name=name,
+            company=company,
+            email=email,
+            phone=phone,
+            service=service,
+            budget=budget,
+            deadline=deadline,
+            message=message,
+            dynamic_data=dynamic_data
+        )
+
+        messages.success(request, 'Sua solicitação de orçamento foi enviada com sucesso! Entraremos em contato em breve.')
+        return redirect('contact')
+
+    return render(request, 'contact.html')
+
 
 
 def _apply_input_classes(form):
@@ -173,6 +237,7 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save(update_fields=['is_active'])
+        login(request, user)
         return render(request, 'registration/activation_complete.html')
 
     return render(request, 'registration/activation_invalid.html')

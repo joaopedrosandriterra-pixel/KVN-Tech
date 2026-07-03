@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models.functions import Lower
+from .models import Contact
 
 
 class SignUpForm(UserCreationForm):
@@ -42,3 +43,32 @@ class SignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class ContactForm(forms.ModelForm):
+    """Form for handling contact submissions with validation."""
+    accept_contact = forms.BooleanField(required=True, label='Aceito ser contatado')
+
+    class Meta:
+        model = Contact
+        fields = [
+            'name', 'company', 'email', 'phone', 'service',
+            'budget', 'deadline', 'message', 'dynamic_data'
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={'autocomplete': 'name'}),
+            'company': forms.TextInput(attrs={'autocomplete': 'organization'}),
+            'email': forms.EmailInput(attrs={'autocomplete': 'email'}),
+            'phone': forms.TextInput(attrs={'autocomplete': 'tel'}),
+            'service': forms.Select(),
+            'budget': forms.Select(),
+            'deadline': forms.Select(),
+            'message': forms.Textarea(),
+        }
+
+    def clean(self):
+        cleaned = super().clean()
+        required_fields = ['name', 'email', 'service', 'budget', 'deadline', 'message']
+        for field in required_fields:
+            if not cleaned.get(field):
+                self.add_error(field, 'Este campo é obrigatório.')
+        return cleaned

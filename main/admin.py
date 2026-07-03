@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Project, ProjectImage, ProjectUpdate, RoadmapItem, Technology
+from .models import Contact, Project, ProjectImage, ProjectUpdate, RoadmapItem, Technology
 
 
 class RoadmapItemInline(admin.TabularInline):
@@ -32,3 +32,11 @@ class ProjectAdmin(admin.ModelAdmin):
 class TechnologyAdmin(admin.ModelAdmin):
     list_display = ('name', 'color')
     search_fields = ('name',)
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'service', 'email', 'phone', 'budget', 'deadline', 'created_at')
+    list_filter = ('service', 'budget', 'deadline', 'created_at')
+    search_fields = ('name', 'company', 'email', 'phone', 'message', 'dynamic_data')
+

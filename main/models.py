@@ -120,3 +120,25 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return self.caption or f'Imagem de {self.project}'
+
+
+class Contact(models.Model):
+    name = models.CharField('Nome', max_length=100)
+    company = models.CharField('Empresa', max_length=100, blank=True)
+    email = models.EmailField('E-mail')
+    phone = models.CharField('Telefone', max_length=20, blank=True)
+    service = models.CharField('Serviço', max_length=50)
+    budget = models.CharField('Orçamento previsto', max_length=30)
+    deadline = models.CharField('Prazo', max_length=30)
+    message = models.TextField('Conte sobre seu projeto')
+    dynamic_data = models.JSONField('Perguntas adicionais', default=dict, blank=True)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Solicitação'
+        verbose_name_plural = 'Solicitações'
+
+    def __str__(self):
+        return f"{self.name} - {self.service} ({self.created_at.strftime('%d/%m/%Y')})"
+
