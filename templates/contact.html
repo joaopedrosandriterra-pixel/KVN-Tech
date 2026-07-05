@@ -138,16 +138,21 @@
         <!-- Qual Serviço? -->
         <div>
           <label for="service" class="block text-sm font-medium text-slate-300">Qual serviço? <span class="text-cyan-400">*</span></label>
-          <select id="service" name="service" required class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 appearance-none">
-            <option value="" disabled {% if not posted_data.service %}selected{% endif %}>Selecione um serviço...</option>
-            <option value="Desenvolvimento Web" {% if posted_data.service == 'Desenvolvimento Web' %}selected{% endif %}>Desenvolvimento Web</option>
-            <option value="Aplicativo" {% if posted_data.service == 'Aplicativo' %}selected{% endif %}>Aplicativo</option>
-            <option value="Sistema" {% if posted_data.service == 'Sistema' %}selected{% endif %}>Sistema</option>
-            <option value="Roblox" {% if posted_data.service == 'Roblox' %}selected{% endif %}>Roblox</option>
-            <option value="API" {% if posted_data.service == 'API' %}selected{% endif %}>API</option>
-            <option value="Consultoria" {% if posted_data.service == 'Consultoria' %}selected{% endif %}>Consultoria</option>
-            <option value="Outro" {% if posted_data.service == 'Outro' %}selected{% endif %}>Outro</option>
-          </select>
+          <div class="relative mt-2">
+            <select id="service" name="service" required class="block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 pr-10 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+              <option value="" disabled {% if not posted_data.service %}selected{% endif %} style="background:#0f172a;color:#94a3b8;">Selecione um serviço...</option>
+              <option value="Desenvolvimento Web" {% if posted_data.service == 'Desenvolvimento Web' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Desenvolvimento Web</option>
+              <option value="Aplicativo" {% if posted_data.service == 'Aplicativo' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Aplicativo</option>
+              <option value="Sistema" {% if posted_data.service == 'Sistema' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sistema</option>
+              <option value="Roblox" {% if posted_data.service == 'Roblox' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Roblox</option>
+              <option value="API" {% if posted_data.service == 'API' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">API</option>
+              <option value="Consultoria" {% if posted_data.service == 'Consultoria' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Consultoria</option>
+              <option value="Outro" {% if posted_data.service == 'Outro' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Outro</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+            </div>
+          </div>
         </div>
 
         <!-- Dynamic Questions Container -->
@@ -164,20 +169,26 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm text-slate-300 mb-2">Já possui domínio?</label>
-                <select name="web_domain"
-                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
-                  <option value="Não" {% if posted_data.web_domain == 'Não' %}selected{% endif %}>Não</option>
-                  <option value="Sim" {% if posted_data.web_domain == 'Sim' %}selected{% endif %}>Sim</option>
-                </select>
+                <div class="relative">
+                  <select name="web_domain"
+                          class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 pr-10 text-slate-200 outline-none transition focus:border-cyan-400 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="Não" {% if posted_data.web_domain == 'Não' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Não</option>
+                    <option value="Sim" {% if posted_data.web_domain == 'Sim' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sim</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
+                </div>
               </div>
               <div>
                 <label class="block text-sm text-slate-300 mb-2">Tem identidade visual?</label>
-                <select name="web_visual_identity"
-                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
-                  <option value="Não" {% if posted_data.web_visual_identity == 'Não' %}selected{% endif %}>Não</option>
-                  <option value="Sim" {% if posted_data.web_visual_identity == 'Sim' %}selected{% endif %}>Sim</option>
-                  <option value="Preciso criar" {% if posted_data.web_visual_identity == 'Preciso criar' %}selected{% endif %}>Preciso criar</option>
-                </select>
+                <div class="relative">
+                  <select name="web_visual_identity"
+                          class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 pr-10 text-slate-200 outline-none transition focus:border-cyan-400 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="Não" {% if posted_data.web_visual_identity == 'Não' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Não</option>
+                    <option value="Sim" {% if posted_data.web_visual_identity == 'Sim' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sim</option>
+                    <option value="Preciso criar" {% if posted_data.web_visual_identity == 'Preciso criar' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Preciso criar</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
+                </div>
               </div>
             </div>
           </div>
@@ -188,19 +199,25 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm text-slate-300 mb-2">Login de usuário?</label>
-                <select name="sys_login"
-                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
-                  <option value="Não" {% if posted_data.sys_login == 'Não' %}selected{% endif %}>Não</option>
-                  <option value="Sim" {% if posted_data.sys_login == 'Sim' %}selected{% endif %}>Sim</option>
-                </select>
+                <div class="relative">
+                  <select name="sys_login"
+                          class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 pr-10 text-slate-200 outline-none transition focus:border-cyan-400 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="Não" {% if posted_data.sys_login == 'Não' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Não</option>
+                    <option value="Sim" {% if posted_data.sys_login == 'Sim' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sim</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
+                </div>
               </div>
               <div>
                 <label class="block text-sm text-slate-300 mb-2">Banco de dados?</label>
-                <select name="sys_db"
-                        class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-slate-200 outline-none transition focus:border-cyan-400">
-                  <option value="Não" {% if posted_data.sys_db == 'Não' %}selected{% endif %}>Não</option>
-                  <option value="Sim" {% if posted_data.sys_db == 'Sim' %}selected{% endif %}>Sim</option>
-                </select>
+                <div class="relative">
+                  <select name="sys_db"
+                          class="block w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 pr-10 text-slate-200 outline-none transition focus:border-cyan-400 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="Não" {% if posted_data.sys_db == 'Não' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Não</option>
+                    <option value="Sim" {% if posted_data.sys_db == 'Sim' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sim</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
+                </div>
               </div>
             </div>
             <div>
@@ -224,27 +241,36 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label class="block text-sm text-slate-300 mb-2">Scripts?</label>
-                <select name="roblox_scripts"
-                        class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400">
-                  <option value="Não" {% if posted_data.roblox_scripts == 'Não' %}selected{% endif %}>Não</option>
-                  <option value="Sim" {% if posted_data.roblox_scripts == 'Sim' %}selected{% endif %}>Sim</option>
-                </select>
+                <div class="relative">
+                  <select name="roblox_scripts"
+                          class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 pr-10 text-slate-200 outline-none transition focus:border-cyan-400 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="Não" {% if posted_data.roblox_scripts == 'Não' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Não</option>
+                    <option value="Sim" {% if posted_data.roblox_scripts == 'Sim' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sim</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
+                </div>
               </div>
               <div>
                 <label class="block text-sm text-slate-300 mb-2">Modelagem?</label>
-                <select name="roblox_modeling"
-                        class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400">
-                  <option value="Não" {% if posted_data.roblox_modeling == 'Não' %}selected{% endif %}>Não</option>
-                  <option value="Sim" {% if posted_data.roblox_modeling == 'Sim' %}selected{% endif %}>Sim</option>
-                </select>
+                <div class="relative">
+                  <select name="roblox_modeling"
+                          class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 pr-10 text-slate-200 outline-none transition focus:border-cyan-400 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="Não" {% if posted_data.roblox_modeling == 'Não' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Não</option>
+                    <option value="Sim" {% if posted_data.roblox_modeling == 'Sim' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sim</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
+                </div>
               </div>
               <div>
                 <label class="block text-sm text-slate-300 mb-2">Interface (UI)?</label>
-                <select name="roblox_ui"
-                        class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-200 outline-none transition focus:border-cyan-400">
-                  <option value="Não" {% if posted_data.roblox_ui == 'Não' %}selected{% endif %}>Não</option>
-                  <option value="Sim" {% if posted_data.roblox_ui == 'Sim' %}selected{% endif %}>Sim</option>
-                </select>
+                <div class="relative">
+                  <select name="roblox_ui"
+                          class="block w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3.5 pr-10 text-slate-200 outline-none transition focus:border-cyan-400 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="Não" {% if posted_data.roblox_ui == 'Não' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Não</option>
+                    <option value="Sim" {% if posted_data.roblox_ui == 'Sim' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sim</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></div>
+                </div>
               </div>
             </div>
           </div>
@@ -254,23 +280,23 @@
         <div>
           <span class="block text-sm font-medium text-slate-300 mb-3">Orçamento previsto <span class="text-cyan-400">*</span></span>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
-            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition-all duration-200">
               <input type="radio" name="budget" value="Ainda não sei" required {% if posted_data.budget == 'Ainda não sei' %}checked{% endif %} class="sr-only" />
               <span class="text-sm font-semibold text-slate-200 text-center">Ainda não sei</span>
             </label>
-            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition-all duration-200">
               <input type="radio" name="budget" value="Até R$500" {% if posted_data.budget == 'Até R$500' %}checked{% endif %} class="sr-only" />
               <span class="text-sm font-semibold text-slate-200 text-center">Até R$500</span>
             </label>
-            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition-all duration-200">
               <input type="radio" name="budget" value="R$500-1.500" {% if posted_data.budget == 'R$500-1.500' %}checked{% endif %} class="sr-only" />
               <span class="text-sm font-semibold text-slate-200 text-center">R$500–1.500</span>
             </label>
-            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition-all duration-200">
               <input type="radio" name="budget" value="R$1.500-5.000" {% if posted_data.budget == 'R$1.500-5.000' %}checked{% endif %} class="sr-only" />
               <span class="text-sm font-semibold text-slate-200 text-center">R$1.500–5.000</span>
             </label>
-            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition hover:border-cyan-500/50 hover:bg-cyan-500/5">
+            <label class="budget-label cursor-pointer flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 p-4 transition-all duration-200">
               <input type="radio" name="budget" value="Acima de R$5.000" {% if posted_data.budget == 'Acima de R$5.000' %}checked{% endif %} class="sr-only" />
               <span class="text-sm font-semibold text-slate-200 text-center">Acima R$5k</span>
             </label>
@@ -280,13 +306,18 @@
         <!-- Prazo -->
         <div>
           <label for="deadline" class="block text-sm font-medium text-slate-300">Prazo <span class="text-cyan-400">*</span></label>
-          <select id="deadline" name="deadline" required class="mt-2 block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 appearance-none">
-            <option value="" disabled {% if not posted_data.deadline %}selected{% endif %}>Selecione um prazo...</option>
-                        <option value="Sem urgência" {% if posted_data.deadline == 'Sem prazo' or posted_data.deadline == 'Sem urgência' %}selected{% endif %}>Sem urgência</option>
-            <option value="30 dias" {% if posted_data.deadline == '30 dias' %}selected{% endif %}>30 dias</option>
-            <option value="15 dias" {% if posted_data.deadline == '15 dias' %}selected{% endif %}>15 dias</option>
-            <option value="Urgente" {% if posted_data.deadline == 'Urgente' %}selected{% endif %}>Urgente</option>
-          </select>
+          <div class="relative mt-2">
+            <select id="deadline" name="deadline" required class="block w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 pr-10 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 cursor-pointer" style="-webkit-appearance: none; -moz-appearance: none; appearance: none;">
+              <option value="" disabled {% if not posted_data.deadline %}selected{% endif %} style="background:#0f172a;color:#94a3b8;">Selecione um prazo...</option>
+              <option value="Sem urgência" {% if posted_data.deadline == 'Sem prazo' or posted_data.deadline == 'Sem urgência' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Sem urgência</option>
+              <option value="30 dias" {% if posted_data.deadline == '30 dias' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">30 dias</option>
+              <option value="15 dias" {% if posted_data.deadline == '15 dias' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">15 dias</option>
+              <option value="Urgente" {% if posted_data.deadline == 'Urgente' %}selected{% endif %} style="background:#0f172a;color:#e2e8f0;">Urgente</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+            </div>
+          </div>
         </div>
 
         <!-- Conte sobre seu projeto -->
@@ -344,6 +375,6 @@
     </div>
     {% endif %}
   </div>
+  <script src="{% static 'js/contact.js' %}" defer></script>
 </section>
 {% endblock %}
-<script src="{% static 'js/contact.js' %}" defer></script>
