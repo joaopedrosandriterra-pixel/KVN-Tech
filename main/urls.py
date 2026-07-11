@@ -3,6 +3,8 @@ from django.urls import path
 from .views import (
     about,
     activate,
+    case_detail,
+    cases,
     contact_view,
     delete_contact,
     faq,
@@ -19,6 +21,8 @@ urlpatterns = [
     path('', home, name='home'),
     path('sobre/', about, name='about'),
     path('faq/', faq, name='faq'),
+    path('cases/', cases, name='cases'),
+    path('cases/<slug:slug>/', case_detail, name='case_detail'),
     path('laboratorio/', laboratory, name='laboratory'),
     path('laboratorio/<slug:slug>/', project_detail, name='project_detail'),
     path('painel/', panel, name='panel'),

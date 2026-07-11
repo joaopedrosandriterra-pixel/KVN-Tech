@@ -16,6 +16,46 @@ class Technology(models.Model):
         return self.name
 
 
+class CaseStudy(models.Model):
+    title = models.CharField('nome do case', max_length=140)
+    slug = models.SlugField(max_length=160, unique=True, blank=True)
+    client_name = models.CharField('cliente', max_length=140)
+    segment = models.CharField('segmento', max_length=80, blank=True)
+    challenge = models.TextField('desafio', blank=True)
+    solution = models.TextField('solução', blank=True)
+    results = models.TextField('resultado', blank=True)
+    technologies = models.ManyToManyField(Technology, related_name='cases', blank=True)
+    testimonial = models.TextField('avaliação do cliente', blank=True)
+    testimonial_author = models.CharField('autor da avaliação', max_length=120, blank=True)
+    gallery_description = models.TextField('descrição da galeria', blank=True)
+    visible = models.BooleanField('visível', default=True)
+    featured = models.BooleanField('destaque', default=False)
+    created_at = models.DateTimeField('criado em', auto_now_add=True)
+    updated_at = models.DateTimeField('atualizado em', auto_now=True)
+
+    class Meta:
+        ordering = ['-featured', '-updated_at', 'title']
+        verbose_name = 'case'
+        verbose_name_plural = 'cases'
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 2
+            while CaseStudy.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f'{base_slug}-{counter}'
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('case_detail', kwargs={'slug': self.slug})
+
+
 class Project(models.Model):
     class Status(models.TextChoices):
         PLANNING = 'planning', 'Planejamento'

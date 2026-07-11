@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ case_study.title }} | KVN Tech{% endblock %}
+
+{% block content %}
+<section class="py-10">
+  <div class="rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-2xl shadow-cyan-950/20">
+    <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Case</p>
+    <h1 class="mt-3 text-4xl font-semibold">{{ case_study.title }}</h1>
+
+    <div class="mt-8 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-xl font-semibold text-slate-100">O cliente</h2>
+          <p class="mt-2 text-slate-300">{{ case_study.client_name }}</p>
+          <p class="mt-1 text-sm text-slate-400">Segmento: {{ case_study.segment|default:'Em definição' }}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-slate-100">O desafio</h2>
+          <p class="mt-2 whitespace-pre-line text-slate-300">{{ case_study.challenge|default:'Descreva o problema enfrentado pelo cliente.' }}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-slate-100">A solução</h2>
+          <p class="mt-2 whitespace-pre-line text-slate-300">{{ case_study.solution|default:'Descreva como a KVN Tech desenvolveu a solução.' }}</p>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-xl font-semibold text-slate-100">Tecnologias</h2>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {% for tech in case_study.technologies.all %}
+              <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">{{ tech.name }}</span>
+            {% empty %}
+              <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-400">Tecnologias a definir</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-slate-100">Resultado</h2>
+          <p class="mt-2 whitespace-pre-line text-slate-300">{{ case_study.results|default:'Descreva os impactos do projeto.' }}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-slate-100">Avaliação do cliente</h2>
+          <div class="mt-3 rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-5">
+            <p class="text-2xl text-cyan-300">★★★★★</p>
+            <p class="mt-3 text-slate-200">“{{ case_study.testimonial|default:'Aguardando avaliação do cliente.' }}”</p>
+            <p class="mt-3 text-sm text-slate-400">— {{ case_study.testimonial_author|default:'Cliente' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-slate-800 bg-slate-950/50 p-6">
+      <h2 class="text-xl font-semibold text-slate-100">Galeria</h2>
+      <p class="mt-2 text-slate-300">{{ case_study.gallery_description|default:'Imagens do projeto.' }}</p>
+      {% if request.user.is_staff %}
+      <p class="mt-3 text-xs text-slate-500">💡 <em>Administrador: Adicione imagens do projeto pelo painel administrativo para montar a galeria.</em></p>
+      {% endif %}
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-6 text-center">
+      <h2 class="text-2xl font-semibold text-slate-100">Quer um sistema semelhante?</h2>
+      <a href="{% url 'contact' %}" class="mt-4 inline-flex rounded-full bg-cyan-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400">Solicitar orçamento</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

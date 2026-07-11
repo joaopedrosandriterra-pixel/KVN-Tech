@@ -15,7 +15,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.decorators.http import require_POST
 
 from .forms import SignUpForm
-from .models import Contact, Project
+from .models import CaseStudy, Contact, Project
 
 
 def home(request):
@@ -83,6 +83,20 @@ def faq(request):
         },
     ]
     return render(request, 'faq.html', {'faqs': faqs})
+
+
+def cases(request):
+    case_studies = CaseStudy.objects.filter(visible=True).prefetch_related('technologies').order_by('-featured', '-updated_at', 'title')
+    return render(request, 'cases.html', {'case_studies': case_studies})
+
+
+def case_detail(request, slug):
+    case_study = get_object_or_404(
+        CaseStudy.objects.prefetch_related('technologies'),
+        slug=slug,
+        visible=True,
+    )
+    return render(request, 'case_detail.html', {'case_study': case_study})
 
 
 def laboratory(request):

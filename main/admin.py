@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Contact, Project, ProjectImage, ProjectUpdate, RoadmapItem, Technology
+from .models import CaseStudy, Contact, Project, ProjectImage, ProjectUpdate, RoadmapItem, Technology
 
 
 class RoadmapItemInline(admin.TabularInline):
@@ -16,6 +16,15 @@ class ProjectUpdateInline(admin.StackedInline):
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
     extra = 1
+
+
+@admin.register(CaseStudy)
+class CaseStudyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'client_name', 'visible', 'featured', 'updated_at')
+    list_filter = ('visible', 'featured')
+    search_fields = ('title', 'client_name', 'segment', 'challenge', 'solution')
+    prepopulated_fields = {'slug': ('title',)}
+    filter_horizontal = ('technologies',)
 
 
 @admin.register(Project)

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}KVN Tech · Cases{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="max-w-6xl mx-auto">
+    <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">Cases</p>
+    <h1 class="mt-3 text-4xl font-semibold">Cases de desenvolvimento</h1>
+    <p class="mt-4 max-w-3xl text-lg text-slate-300">
+      Conheça os projetos que desenvolvemos, os desafios enfrentados, as soluções implementadas e os resultados alcançados.
+    </p>
+
+    {% if request.user.is_staff %}
+    <div class="mt-6 rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-4 text-sm text-cyan-200">
+      <strong>👨‍💻 Administrador:</strong> Cadastre novos cases pelo painel administrativo e eles aparecerão automaticamente aqui.
+    </div>
+    {% endif %}
+
+    {% if case_studies %}
+    <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {% for case in case_studies %}
+      <article class="flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-lg shadow-cyan-950/20">
+        <div class="flex items-center justify-between gap-3">
+          <span class="rounded-full border border-slate-700 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-slate-400">{{ case.segment|default:'Projeto' }}</span>
+          {% if case.featured %}
+            <span class="rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-cyan-300">Destaque</span>
+          {% endif %}
+        </div>
+        <h2 class="mt-5 text-2xl font-semibold text-slate-100">{{ case.title }}</h2>
+        <p class="mt-3 text-sm leading-6 text-slate-300">{{ case.client_name }}</p>
+        <p class="mt-4 flex-1 text-sm leading-6 text-slate-400">{{ case.challenge|truncatechars:140 }}</p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {% for tech in case.technologies.all %}
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300">{{ tech.name }}</span>
+          {% empty %}
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-400">Tecnologias a definir</span>
+          {% endfor %}
+        </div>
+        <a href="{{ case.get_absolute_url }}" class="mt-6 inline-flex rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">Ver case</a>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="mt-10 rounded-3xl border border-slate-800 bg-slate-900/70 p-8 text-slate-300">
+      Nenhum case público cadastrado ainda. Cadastre os cases pelo painel administrativo para que eles apareçam aqui.
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
