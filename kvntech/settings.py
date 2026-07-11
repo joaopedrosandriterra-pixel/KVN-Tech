@@ -53,7 +53,7 @@ def _get_list_env(name: str, default: str = '') -> list[str]:
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-gc5)uwr*xi@fx&q^mcehzlfku99cf*29ca!9eb$9ylzu0bbo=2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = _get_bool_env('DEBUG', False)
+DEBUG = _get_bool_env('DEBUG', True)
 
 ALLOWED_HOSTS = _get_list_env('ALLOWED_HOSTS', 'servidor.taileb10d1.ts.net,localhost,127.0.0.1')
 
@@ -113,8 +113,9 @@ WSGI_APPLICATION = 'kvntech.wsgi.application'
 POSTGRES_NAME = os.getenv('DB_NAME') or os.getenv('POSTGRES_DB')
 POSTGRES_USER = os.getenv('DB_USER') or os.getenv('POSTGRES_USER')
 POSTGRES_PASSWORD = os.getenv('DB_PASSWORD') or os.getenv('POSTGRES_PASSWORD')
+USE_SQLITE = _get_bool_env('USE_SQLITE', True)
 
-if not _get_bool_env('USE_SQLITE', False) and POSTGRES_NAME and POSTGRES_USER:
+if not USE_SQLITE and POSTGRES_NAME and POSTGRES_USER and POSTGRES_PASSWORD:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -169,7 +170,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'theme' / 'static']
+STATICFILES_DIRS = [
+    BASE_DIR / 'theme' / 'static',
+    BASE_DIR / 'static',
+]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'

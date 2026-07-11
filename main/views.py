@@ -19,23 +19,11 @@ from .models import Contact, Project
 
 
 def home(request):
-    projects = [
-        {
-            'title': 'Sistema Web com Django',
-            'summary': 'Painel administrativo, autenticação e fluxo de dados organizado.',
-            'tech': ['Django', 'PostgreSQL', 'Docker'],
-        },
-        {
-            'title': 'Automação de processos',
-            'summary': 'Scripts e integrações para reduzir esforço manual e ganhar agilidade.',
-            'tech': ['Python', 'APIs', 'Linux'],
-        },
-        {
-            'title': 'Experiência em Roblox',
-            'summary': 'Sistemas, NPCs, combate e UI com foco em gameplay e performance.',
-            'tech': ['Roblox', 'Lua', 'UI'],
-        },
-    ]
+    projects = (
+        Project.objects.filter(visible=True)
+        .prefetch_related('technologies')
+        .order_by('-featured', '-updated_at', 'title')[:6]
+    )
 
     services = [
         'Sites institucionais e landing pages',

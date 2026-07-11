@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.staticfiles import finders
 from django.test import TestCase
 from django.urls import reverse
 
@@ -55,6 +56,8 @@ class ContactTests(TestCase):
         self.assertRedirects(response, reverse('login'))
         self.assertEqual(Contact.objects.count(), 0)
 
+    def test_contact_static_assets_are_discoverable(self):
+        self.assertIsNotNone(finders.find('js/contact.js'))
 
     def test_submit_contact_success_with_dynamic_data(self):
         self.client.force_login(self.active_user)

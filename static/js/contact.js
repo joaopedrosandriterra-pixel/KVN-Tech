@@ -10,24 +10,26 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!serviceSelect || !container) return;
 
   function handleServiceChange() {
+    if (!serviceSelect) return;
+
     const service = serviceSelect.value;
 
     // Hide all dynamic sections
     if (webFields) webFields.classList.add('hidden');
     if (sysFields) sysFields.classList.add('hidden');
     if (robloxFields) robloxFields.classList.add('hidden');
-    container.classList.add('hidden');
+    if (container) container.classList.add('hidden');
 
     if (service === 'Desenvolvimento Web') {
-      container.classList.remove('hidden');
+      if (container) container.classList.remove('hidden');
       if (webFields) webFields.classList.remove('hidden');
       if (btnText) btnText.innerHTML = '🚀 Solicitar orçamento';
     } else if (service === 'Sistema') {
-      container.classList.remove('hidden');
+      if (container) container.classList.remove('hidden');
       if (sysFields) sysFields.classList.remove('hidden');
       if (btnText) btnText.innerHTML = '🚀 Solicitar orçamento';
     } else if (service === 'Roblox') {
-      container.classList.remove('hidden');
+      if (container) container.classList.remove('hidden');
       if (robloxFields) robloxFields.classList.remove('hidden');
       if (btnText) btnText.innerHTML = '🚀 Solicitar orçamento';
     } else if (service === 'Aplicativo' || service === 'API') {
@@ -69,8 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Listen to both 'change' and 'input' for maximum browser compatibility
-  serviceSelect.addEventListener('change', handleServiceChange);
-  serviceSelect.addEventListener('input', handleServiceChange);
+  if (serviceSelect) {
+    serviceSelect.addEventListener('change', handleServiceChange);
+    serviceSelect.addEventListener('input', handleServiceChange);
+  }
 
   document.querySelectorAll('input[name="budget"]').forEach(function(radio) {
     radio.addEventListener('change', function() {

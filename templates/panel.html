@@ -187,6 +187,10 @@
 
 <script>
   function openSolicitationModal(card) {
+    const modal = document.getElementById('solicitation-modal');
+    const container = document.getElementById('modal-container');
+    if (!modal || !container || !card) return;
+
     const id = card.getAttribute('data-id');
     const name = card.getAttribute('data-name');
     const company = card.getAttribute('data-company');
@@ -199,38 +203,49 @@
     const date = card.getAttribute('data-date');
 
     // Populate modal fields
-    document.getElementById('modal-service').textContent = service;
-    document.getElementById('modal-name').textContent = name;
-    document.getElementById('modal-company').textContent = company ? 'Empresa: ' + company : 'Empresa: Não informada';
-    
+    const modalService = document.getElementById('modal-service');
+    const modalName = document.getElementById('modal-name');
+    const modalCompany = document.getElementById('modal-company');
     const emailLink = document.getElementById('modal-email-link');
-    emailLink.textContent = email;
-    emailLink.href = 'mailto:' + email;
-    
-    document.getElementById('modal-phone').textContent = phone;
-    document.getElementById('modal-budget').textContent = budget;
-    document.getElementById('modal-deadline').textContent = deadline;
-    document.getElementById('modal-date').textContent = date;
-    document.getElementById('modal-message').textContent = message;
+    const modalPhone = document.getElementById('modal-phone');
+    const modalBudget = document.getElementById('modal-budget');
+    const modalDeadline = document.getElementById('modal-deadline');
+    const modalDate = document.getElementById('modal-date');
+    const modalMessage = document.getElementById('modal-message');
+
+    if (modalService) modalService.textContent = service || 'Serviço';
+    if (modalName) modalName.textContent = name || 'Nome do Cliente';
+    if (modalCompany) modalCompany.textContent = company ? 'Empresa: ' + company : 'Empresa: Não informada';
+    if (emailLink) {
+      emailLink.textContent = email || 'Não informado';
+      emailLink.href = 'mailto:' + (email || '');
+    }
+    if (modalPhone) modalPhone.textContent = phone;
+    if (modalBudget) modalBudget.textContent = budget || 'Não informado';
+    if (modalDeadline) modalDeadline.textContent = deadline || 'Não informado';
+    if (modalDate) modalDate.textContent = date || 'Não informado';
+    if (modalMessage) modalMessage.textContent = message || '';
 
     // Handle dynamic data rendering
-    const dynamicDataHtml = document.getElementById('dynamic-data-' + id).innerHTML;
+    const dynamicDataHtml = document.getElementById('dynamic-data-' + id)?.innerHTML || '';
     const dynamicContainer = document.getElementById('modal-dynamic-container');
     const dynamicContent = document.getElementById('modal-dynamic-content');
-    
-    if (dynamicDataHtml.trim() !== "") {
-      dynamicContent.innerHTML = dynamicDataHtml;
-      dynamicContainer.classList.remove('hidden');
-    } else {
-      dynamicContainer.classList.add('hidden');
+
+    if (dynamicContainer && dynamicContent) {
+      if (dynamicDataHtml.trim() !== '') {
+        dynamicContent.innerHTML = dynamicDataHtml;
+        dynamicContainer.classList.remove('hidden');
+      } else {
+        dynamicContainer.classList.add('hidden');
+      }
     }
 
     // Set delete action URL
-    document.getElementById('delete-form').action = '/painel/solicitacao/' + id + '/excluir/';
+    const deleteForm = document.getElementById('delete-form');
+    if (deleteForm) {
+      deleteForm.action = '/painel/solicitacao/' + id + '/excluir/';
+    }
 
-    // Show modal with animation
-    const modal = document.getElementById('solicitation-modal');
-    const container = document.getElementById('modal-container');
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     setTimeout(() => {
@@ -242,20 +257,25 @@
   function closeSolicitationModal() {
     const modal = document.getElementById('solicitation-modal');
     const container = document.getElementById('modal-container');
-    
+    if (!modal || !container) return;
+
     container.classList.remove('scale-100', 'opacity-100');
     container.classList.add('scale-95', 'opacity-0');
-    
+
     setTimeout(() => {
       modal.classList.remove('flex');
       modal.classList.add('hidden');
     }, 300);
   }
 
-  // Close modal when clicking outside container
-  document.getElementById('solicitation-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      closeSolicitationModal();
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('solicitation-modal');
+    if (modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeSolicitationModal();
+        }
+      });
     }
   });
 </script>
