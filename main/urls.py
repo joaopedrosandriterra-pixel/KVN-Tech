@@ -5,6 +5,7 @@ from .views import (
     activate,
     contact_view,
     delete_contact,
+    faq,
     home,
     laboratory,
     login_view,
@@ -17,6 +18,7 @@ from .views import (
 urlpatterns = [
     path('', home, name='home'),
     path('sobre/', about, name='about'),
+    path('faq/', faq, name='faq'),
     path('laboratorio/', laboratory, name='laboratory'),
     path('laboratorio/<slug:slug>/', project_detail, name='project_detail'),
     path('painel/', panel, name='panel'),

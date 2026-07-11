@@ -39,6 +39,52 @@ def about(request):
     return render(request, 'about.html')
 
 
+def faq(request):
+    faqs = [
+        {
+            'question': 'Quanto custa um site?',
+            'answer': 'O valor depende do tipo de projeto, das funcionalidades desejadas e da complexidade. Após uma conversa inicial, elaboramos um orçamento personalizado, sem compromisso.',
+        },
+        {
+            'question': 'Quanto tempo leva para desenvolver um site?',
+            'answer': 'O prazo varia conforme o projeto. Sites institucionais geralmente levam de 2 a 4 semanas, enquanto sistemas mais complexos podem exigir mais tempo.',
+        },
+        {
+            'question': 'Vocês desenvolvem sistemas personalizados?',
+            'answer': 'Sim. Desenvolvemos sistemas sob medida para atender às necessidades específicas de cada empresa, utilizando tecnologias modernas e escaláveis.',
+        },
+        {
+            'question': 'Meu site funcionará em celulares?',
+            'answer': 'Sim. Todos os projetos são desenvolvidos para funcionar corretamente em computadores, tablets e smartphones.',
+        },
+        {
+            'question': 'O site será seguro?',
+            'answer': 'Sim. Adotamos boas práticas de desenvolvimento, autenticação segura, proteção contra vulnerabilidades comuns e utilização de conexões HTTPS.',
+        },
+        {
+            'question': 'Posso solicitar alterações após a entrega?',
+            'answer': 'Sim. É possível solicitar ajustes e novas funcionalidades conforme a necessidade do projeto.',
+        },
+        {
+            'question': 'Vocês fazem manutenção?',
+            'answer': 'Sim. Oferecemos suporte e manutenção para manter o sistema atualizado e funcionando corretamente.',
+        },
+        {
+            'question': 'O domínio e a hospedagem estão inclusos?',
+            'answer': 'Podemos orientar na contratação ou cuidar da configuração, conforme o acordo realizado no projeto.',
+        },
+        {
+            'question': 'Quais tecnologias vocês utilizam?',
+            'answer': 'Trabalhamos principalmente com Python, Django, PostgreSQL, Docker, Tailwind CSS, HTML, CSS e JavaScript. Sempre escolhemos a tecnologia mais adequada para cada projeto.',
+        },
+        {
+            'question': 'Como solicito um orçamento?',
+            'answer': 'Basta acessar a página Contato, preencher o formulário com as informações do projeto e entraremos em contato o mais breve possível.',
+        },
+    ]
+    return render(request, 'faq.html', {'faqs': faqs})
+
+
 def laboratory(request):
     projects = (
         Project.objects.filter(visible=True)

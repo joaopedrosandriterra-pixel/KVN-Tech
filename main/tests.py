@@ -10,6 +10,7 @@ class PageTests(TestCase):
         self.assertContains(response, 'Transformamos ideias em realidade')
         self.assertContains(response, 'href="/sobre/"')
         self.assertContains(response, 'href="/laboratorio/"')
+        self.assertContains(response, 'href="/faq/"')
 
     def test_home_page_shows_visible_projects_from_database(self):
         Project.objects.create(
@@ -24,6 +25,12 @@ class PageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Sistema de Gestão')
         self.assertContains(response, 'Painel completo para operação diaria.')
+
+    def test_faq_page_loads(self):
+        response = self.client.get('/faq/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Perguntas Frequentes')
+        self.assertContains(response, 'Quanto custa um site?')
 
     def test_about_page_loads(self):
         response = self.client.get('/sobre/')
