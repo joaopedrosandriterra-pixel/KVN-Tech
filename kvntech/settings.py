@@ -53,7 +53,7 @@ def _get_list_env(name: str, default: str = '') -> list[str]:
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-gc5)uwr*xi@fx&q^mcehzlfku99cf*29ca!9eb$9ylzu0bbo=2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = _get_bool_env('DEBUG', True)
+DEBUG = _get_bool_env('DEBUG', False)
 
 ALLOWED_HOSTS = _get_list_env('ALLOWED_HOSTS', 'servidor.taileb10d1.ts.net,localhost,127.0.0.1')
 
